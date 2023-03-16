@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790061742575",
+    "project_id": "smart-wear-app",
+    "storage_bucket": "smart-wear-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790061742575:android:ac06e57250bc3975821e1a",
+        "android_client_info": {
+          "package_name": "com.example.smart_wear_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790061742575-ci8h1ke0qqco4oq2r64ce06uflqvhvsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlfflhmUnJfvfQap1C7FvX50cMrwul9QM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790061742575-ci8h1ke0qqco4oq2r64ce06uflqvhvsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
