@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_wear/presentation/splash_and_animation_screen/splash_and_animation_screen.dart';
 import 'package:smart_wear/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:smart_wear/presentation/sign_up_with_email_screen/sign_up_with_email_screen.dart';
 import 'package:smart_wear/presentation/home_screen/home_screen.dart';
@@ -13,10 +12,15 @@ import 'package:smart_wear/presentation/favorites_screen/favorites_screen.dart';
 import 'package:smart_wear/presentation/shirt_description_screen/shirt_description_screen.dart';
 import 'package:smart_wear/presentation/settings_screen/settings_screen.dart';
 
-class AppRoutes {
-  static const String splashAndAnimationScreen = '/splash_and_animation_screen';
+import '../presentation/intro/intro_page.dart';
+import '../presentation/intro/splash_screen/splash_screen.dart';
 
-  static const String signInOneScreen = '/sign_in_one_screen';
+class AppRoutes {
+  //static const String splashScreen = '/';
+
+  static const String introScreen = '/intro';
+
+  static const String signInOneScreen = '/sign_in_screen';
 
   static const String signUpWithEmailScreen = '/sign_up_with_email_screen';
 
@@ -35,7 +39,7 @@ class AppRoutes {
 
   static const String joinUsScreen = '/join_us_screen';
 
-  static const String signInScreen = '/sign_in_screen';
+  static const String forgotPassword = '/forgot_password';
 
   static const String favoritesScreen = '/favorites_screen';
 
@@ -46,7 +50,8 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static Map<String, WidgetBuilder> routes = {
-    splashAndAnimationScreen: (context) => SplashAndAnimationScreen(),
+    //splashScreen: (context) => SplashScreen(),
+    introScreen: (context) => IntroPage(),
     signInOneScreen: (context) => SignInScreen(),
     signUpWithEmailScreen: (context) => SignUpWithEmailScreen(),
     homeScreen: (context) => HomeScreen(),
@@ -55,7 +60,7 @@ class AppRoutes {
     contactSupportContainerScreen: (context) => ContactSupportContainerScreen(),
     editProfileScreen: (context) => EditProfileScreen(),
     joinUsScreen: (context) => JoinUsScreen(),
-    signInScreen: (context) => ForgotPasswordScreen(),
+    forgotPassword: (context) => ForgotPasswordScreen(),
     favoritesScreen: (context) => FavoritesScreen(),
     shirtDescriptionScreen: (context) => ShirtDescriptionScreen(),
     settingsScreen: (context) => SettingsScreen(),

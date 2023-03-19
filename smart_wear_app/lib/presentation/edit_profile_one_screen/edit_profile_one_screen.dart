@@ -156,7 +156,7 @@ class EditProfileOneScreen extends StatelessWidget {
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.contactSupportPage:
-        return ContactSupportPage();
+        return ContactSupportScreen();
       default:
         return DefaultWidget();
     }

@@ -286,6 +286,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   onTapTxtForgotPassword(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signInScreen);
+    Navigator.pushNamed(context, AppRoutes.forgotPassword);
   }
 }

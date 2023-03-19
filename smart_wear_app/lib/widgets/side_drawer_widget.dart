@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // Screens
 import 'package:smart_wear/presentation/about_us_screen/about_us_screen.dart';
@@ -11,16 +11,15 @@ import 'package:smart_wear/presentation/settings_screen/settings_screen.dart';
 
 import '../../providers/auth_provider.dart';
 import 'package:smart_wear/core/utils/color_constant.dart';
-import 'package:smart_wear/widgets/app_bar/bottom_navbar.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class SideDrawerWidget extends StatefulWidget {
+  const SideDrawerWidget({Key? key}) : super(key: key);
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<SideDrawerWidget> createState() => _SideDrawerWidgetState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SideDrawerWidgetState extends State<SideDrawerWidget> {
   var _isSigningOut = false;
   void _tryLogout() async {
     setState(() {
@@ -41,32 +40,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Drawer(
+      child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('John Doe'),
-            accountEmail: const Text('johndoe@gmail.com'),
+            accountName: Text('John Doe'),
+            accountEmail: Text('johndoe@gmail.com'),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/profile_pic.png'),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'Settings',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              backgroundImage: AssetImage('assets/profile_pic.jpg'),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Edit Profile'),
             onTap: () {
-              Navigator.push(
+              Navigator.pop(context);
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => EditProfileScreen()),
               );
@@ -76,7 +65,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.info_outline_rounded),
             title: const Text('About Us'),
             onTap: () {
-              Navigator.push(
+              Navigator.pop(context);
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => AboutUsScreen()),
               );
@@ -86,25 +76,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const Icon(Icons.contact_support_outlined),
             title: const Text('Contact Support'),
             onTap: () {
-              Navigator.push(
+              Navigator.pop(context);
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => ContactSupportScreen()),
               );
             },
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Logout'),
             onTap: _tryLogout,
           ),
         ],
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            color: Color.fromARGB(26, 189, 189, 189),
-            borderRadius: BorderRadius.circular(40)),
-        child: BottomNavbarWidget(),
       ),
     );
   }

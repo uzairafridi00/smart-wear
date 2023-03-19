@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_wear/presentation/splash_and_animation_screen/splash_and_animation_screen.dart';
 
 import 'package:smart_wear/routes/app_routes.dart';
 import 'package:smart_wear/widgets/app_bar/bottom_navbar.dart';
@@ -50,6 +49,7 @@ class MyApp extends StatelessWidget {
         title: 'smart_wear',
         debugShowCheckedModeBanner: false,
         //initialRoute: AppRoutes.splashAndAnimationScreen,
+        //initialRoute: AppRoutes.splashScreen,
         home: AuthWrapper(),
         routes: AppRoutes.routes,
       ),
@@ -69,7 +69,7 @@ class AuthWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       // return HomeScreen for logged in users
-      return BottomNavBarWidget();
+      return HomeScreen();
     } else {
       // return SignInScreen for not logged in users
       return SignInScreen(

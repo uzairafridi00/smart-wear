@@ -7,15 +7,8 @@ import 'package:smart_wear/widgets/custom_button.dart';
 import 'package:smart_wear/widgets/custom_text_form_field.dart';
 
 import '../../widgets/app_bar/bottom_navbar.dart';
-// ignore_for_file: must_be_immutable
+import '../../widgets/side_drawer_widget.dart';
 
-// ignore_for_file: must_be_immutable
-
-// ignore_for_file: must_be_immutable
-
-// ignore_for_file: must_be_immutable
-
-// ignore_for_file: must_be_immutable
 class EditProfileScreen extends StatefulWidget {
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -24,14 +17,12 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Edit Profile'),
-        ),
-        backgroundColor: ColorConstant.whiteA700,
-        body: Text('Edit Profile'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Edit Profile'),
       ),
+      backgroundColor: ColorConstant.whiteA700,
+      body: Text('Edit Profile'),
     );
   }
 }
