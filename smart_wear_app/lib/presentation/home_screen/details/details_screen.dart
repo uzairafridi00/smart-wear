@@ -86,7 +86,6 @@ class DetailsScreen extends StatelessWidget {
                       height: 8,
                       color: deactiveColorIndicator,
                     ),
-                    AllComponent(location: '${des.location}'),
                     const SizedBox(
                       height: 30,
                     ),

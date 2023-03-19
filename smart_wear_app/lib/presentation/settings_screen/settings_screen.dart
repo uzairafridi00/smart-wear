@@ -26,9 +26,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _isSigningOut = true;
     });
-    await AuthProvider(FirebaseAuth.instance).signOut();
-    await AuthProvider(FirebaseAuth.instance).signOutFromGoogle();
-    await AuthProvider(FirebaseAuth.instance).signOutFromFirebase();
+    try {
+      await AuthProvider(FirebaseAuth.instance).signOut();
+      await AuthProvider(FirebaseAuth.instance).signOutFromGoogle();
+      await AuthProvider(FirebaseAuth.instance).signOutFromFirebase();
+    } catch (e) {
+      // Handle any errors that occur during sign out
+      debugPrint('Error signing out');
+    }
 
     // Return to the previous screen (which should be the sign-in screen)
     // ignore: use_build_context_synchronously
@@ -42,64 +47,68 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text('John Doe'),
-            accountEmail: const Text('johndoe@gmail.com'),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/profile_pic.png'),
+      body: _isSigningOut
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UserAccountsDrawerHeader(
+                  accountName: const Text('John Doe'),
+                  accountEmail: const Text('johndoe@gmail.com'),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/images/profile_pic.png'),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Edit Profile'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfileScreen()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.info_outline_rounded),
+                  title: const Text('About Us'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AboutUsScreen()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.contact_support_outlined),
+                  title: const Text('Contact Support'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ContactSupportScreen()),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.logout_outlined),
+                  title: const Text('Logout'),
+                  onTap: _tryLogout,
+                ),
+              ],
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'Settings',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Edit Profile'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditProfileScreen()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.info_outline_rounded),
-            title: const Text('About Us'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AboutUsScreen()),
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.contact_support_outlined),
-            title: const Text('Contact Support'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ContactSupportScreen()),
-              );
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.logout_outlined),
-            title: const Text('Logout'),
-            onTap: _tryLogout,
-          ),
-        ],
-      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
             color: Color.fromARGB(26, 189, 189, 189),

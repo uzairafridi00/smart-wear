@@ -32,7 +32,7 @@ class _PageViewClothesListState extends State<PageViewClothesList> {
             child: ClothesCard(
               active: active,
               index: index,
-              destinitation: destination[index],
+              clothe: destination[index],
             ),
           );
         },

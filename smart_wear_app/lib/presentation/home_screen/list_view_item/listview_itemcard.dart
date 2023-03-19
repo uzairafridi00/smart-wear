@@ -11,12 +11,11 @@ class ListViewItemCard extends StatelessWidget {
     Key? key,
     required this.image,
     required this.name,
-    required this.location,
     required this.onpress,
   }) : super(key: key);
   final String image;
   final String name;
-  final String location;
+
   final VoidCallback onpress;
 
   @override
@@ -72,7 +71,6 @@ class ListViewItemCard extends StatelessWidget {
                   Text(name,
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold)),
-                  AllComponent(location: location),
                 ],
               )
             ],

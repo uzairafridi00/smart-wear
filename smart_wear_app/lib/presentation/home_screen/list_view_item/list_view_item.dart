@@ -41,7 +41,6 @@ class ListViewItem extends StatelessWidget {
             return ListViewItemCard(
                 image: 'assets/images/${des.image}',
                 name: '${des.name}',
-                location: '${des.location}',
                 onpress: () {
                   Navigator.push(
                       context,

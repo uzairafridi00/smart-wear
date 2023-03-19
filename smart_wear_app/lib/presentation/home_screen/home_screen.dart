@@ -82,29 +82,33 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Stack(
               children: [
                 RichText(
-                  text: TextSpan(children: [
-                    TextSpan(
-                        text: 'Explorer the\n',
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'Explore the\n',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'SFdisplay',
+                              fontSize: 40)),
+                      TextSpan(
+                          text: 'Beautiful ',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'geometric',
+                              fontSize: 40)),
+                      TextSpan(
+                        text: 'Fashion\n',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'SFdisplay',
-                            fontSize: 40)),
-                    TextSpan(
-                        text: 'Beautiful ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'geometric',
-                            fontSize: 40)),
-                    TextSpan(
-                        text: 'World\n',
-                        style: TextStyle(
-                            color: Color(0xffFF7029),
-                            fontFamily: 'geometric',
-                            fontSize: 40)),
-                  ]),
+                          color: Color(0xffFF7029),
+                          fontFamily: 'geometric',
+                          fontSize: 40,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
-                  right: 20,
+                  right: 40,
                   top: 95,
                   child: SvgPicture.asset('assets/images/Vector.svg'),
                 ),
@@ -118,16 +122,20 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Best Destination",
+                "Best Designs",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/listviewitem');
+                  Navigator.of(context).pushNamed(AppRoutes.listViewItem);
                 },
-                child: Text("View all",
-                    style:
-                        TextStyle(fontSize: 15, color: activeColorIndicator)),
+                child: Text(
+                  "View all",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: activeColorIndicator,
+                  ),
+                ),
               )
             ],
           ),

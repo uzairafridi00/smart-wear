@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_wear/presentation/home_screen/list_view_item/list_view_item.dart';
+import 'package:smart_wear/presentation/home_screen/page_view_clothes_list.dart';
 import 'package:smart_wear/presentation/sign_in_screen/sign_in_screen.dart';
 import 'package:smart_wear/presentation/sign_up_with_email_screen/sign_up_with_email_screen.dart';
 import 'package:smart_wear/presentation/home_screen/home_screen.dart';
@@ -49,6 +51,8 @@ class AppRoutes {
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
+  static const String listViewItem = '/list_view_item';
+
   static Map<String, WidgetBuilder> routes = {
     //splashScreen: (context) => SplashScreen(),
     introScreen: (context) => IntroPage(),
@@ -64,5 +68,6 @@ class AppRoutes {
     favoritesScreen: (context) => FavoritesScreen(),
     shirtDescriptionScreen: (context) => ShirtDescriptionScreen(),
     settingsScreen: (context) => SettingsScreen(),
+    listViewItem: (context) => ListViewItem(),
   };
 }

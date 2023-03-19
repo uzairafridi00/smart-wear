@@ -8,13 +8,12 @@ import 'package:flutter_svg/svg.dart';
 import '../../../models/clothes_model.dart';
 
 class ClothesCard extends StatelessWidget {
-  const ClothesCard(
-      {Key? key, this.active, this.index, required this.destinitation})
+  const ClothesCard({Key? key, this.active, this.index, required this.clothe})
       : super(key: key);
 
   final bool? active;
   final int? index;
-  final Clothes destinitation;
+  final Clothes clothe;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class ClothesCard extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: destinitation.startColor,
+              color: clothe.startColor,
               boxShadow: [
                 BoxShadow(
                     color: Colors.black87.withOpacity(0.3),
@@ -45,7 +44,7 @@ class ClothesCard extends StatelessWidget {
               ],
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/${destinitation.image}')),
+                  image: AssetImage('assets/images/${clothe.image}')),
             ),
             child: Stack(
               children: [
@@ -54,8 +53,8 @@ class ClothesCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(32),
                       gradient: LinearGradient(
                         colors: [
-                          destinitation.startColor!,
-                          destinitation.endColor!.withOpacity(0.01),
+                          clothe.startColor!,
+                          clothe.endColor!.withOpacity(0.01),
                         ],
                         begin: Alignment.bottomRight,
                         end: Alignment.topLeft,
@@ -67,98 +66,36 @@ class ClothesCard extends StatelessWidget {
             ),
           ),
         ),
-        Column(children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '${destinitation.name}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow.shade700,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text("${destinitation.rate}",
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold))
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Row(children: [
-                  SvgPicture.asset(
-                    "assets/images/Location.svg",
-                    width: 23,
-                  ),
-                  const SizedBox(
-                    width: 3,
-                  ),
-                  Text("${destinitation.location}",
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff7D848D))),
-                ]),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 30,
-                    width: 100,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          right: 60,
-                          child: Image.asset(
-                            'assets/images/profile1.png',
-                          ),
-                        ),
-                        Positioned.fill(
-                            right: 30,
-                            child: Image.asset('assets/images/profile2.png')),
-                        Positioned.fill(
-                            right: 5,
-                            child: Image.asset('assets/images/profile3.png')),
-                        Positioned.fill(
-                          left: 49,
-                          top: 2,
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                'assets/images/profile4.png',
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  "+50",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    '${clothe.name}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.favorite_border_rounded,
+                        color: Colors.yellow.shade700,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text("${clothe.rate}",
+                          style: const TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold))
+                    ],
                   ),
                 ],
-              )
-            ],
-          ),
-        ])
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
