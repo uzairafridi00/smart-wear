@@ -22,66 +22,64 @@ class BottomNavbarWidget extends StatefulWidget {
 class _BottomNavbarWidgetState extends State<BottomNavbarWidget> {
   int _selectedIndex = 0;
 
+  final List<Widget> _screens = [
+    HomeScreen(),
+    EditProfileScreen(),
+    FavoritesScreen(),
+    SettingsScreen(),
+  ];
+
   void _onItemTapped(int index) {
-    setState(
-      () {
-        _selectedIndex = index;
-        switch (_selectedIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              ScaleRoute(
-                page: HomeScreen(),
-              ),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              ScaleRoute(
-                page: EditProfileScreen(),
-              ),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              ScaleRoute(
-                page: FavoritesScreen(),
-              ),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              ScaleRoute(
-                page: SettingsScreen(),
-              ),
-            );
-            break;
-        }
-      },
-    );
+    setState(() {
+      _selectedIndex = index;
+      Navigator.of(context).push(
+        ScaleRoute(
+          page: _screens[index],
+        ),
+      );
+    });
   }
 
   // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //     switch (_selectedIndex) {
-  //       case 0:
-  //         Navigator.pushNamed(context, AppRoutes.homeScreen);
-  //         break;
-  //       case 1:
-  //         Navigator.pushNamed(context, AppRoutes.editProfileScreen);
-  //         break;
-  //       case 2:
-  //         Navigator.pushNamed(context, AppRoutes.favoritesScreen);
-  //         break;
-  //       case 3:
-  //         Navigator.pushNamed(context, AppRoutes.settingsScreen);
-  //         break;
-  //     }
-  //   });
+  //   setState(
+  //     () {
+  //       _selectedIndex = index;
+  //       switch (_selectedIndex) {
+  //         case 0:
+  //           Navigator.push(
+  //             context,
+  //             ScaleRoute(
+  //               page: HomeScreen(),
+  //             ),
+  //           );
+  //           break;
+  //         case 1:
+  //           Navigator.push(
+  //             context,
+  //             ScaleRoute(
+  //               page: EditProfileScreen(),
+  //             ),
+  //           );
+  //           break;
+  //         case 2:
+  //           Navigator.push(
+  //             context,
+  //             ScaleRoute(
+  //               page: FavoritesScreen(),
+  //             ),
+  //           );
+  //           break;
+  //         case 3:
+  //           Navigator.push(
+  //             context,
+  //             ScaleRoute(
+  //               page: SettingsScreen(),
+  //             ),
+  //           );
+  //           break;
+  //       }
+  //     },
+  //   );
   // }
 
   @override

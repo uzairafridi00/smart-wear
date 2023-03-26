@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:smart_wear/core/app_export.dart';
 
 import 'package:smart_wear/widgets/custom_button.dart';
 
-import '../../providers/auth_provider.dart';
+import '../../controllers/auth_controller.dart';
 import '../../core/utils/my_show_dialogs.dart';
 import '../sign_in_screen/sign_in_screen.dart';
 // ignore_for_file: must_be_immutable
@@ -22,48 +23,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var _isLogin = true;
-
-  void _submitForm() async {
-    final form = _formKey.currentState;
-    if (form == null || !form.validate()) return;
-
-    // Display a progress indicator while resetting the password
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => AlertDialog(
-        content: CircularProgressIndicator(),
-      ),
-    );
-
-    final email = emailController.text.trim();
-    try {
-      await AuthProvider(FirebaseAuth.instance).resetPassword(email);
-      Navigator.of(context).pop(); // Close the progress indicator
-      _showResetSuccessDialog();
-      emailController.clear();
-    } catch (e) {
-      Navigator.of(context).pop(); // Close the progress indicator
-      _showResetErrorDialog(e.toString());
-      emailController.clear();
-    }
-  }
-
-  void _showResetSuccessDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => MyShowDialog.successDialog(
-          context, 'Email Password reset link sent successfully.'),
-    );
-  }
-
-  void _showResetErrorDialog(String error) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) =>
-          MyShowDialog.errorDialog(context, error),
-    );
+  @override
+  void dispose() {
+    // implement dispose
+    super.dispose();
+    emailController.dispose();
   }
 
   @override
@@ -73,15 +37,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorConstant.amber700,
-          iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
-          ),
-          title: const Text(
-            "Forgot Password",
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
         backgroundColor: ColorConstant.whiteA700,
         resizeToAvoidBottomInset: false,
@@ -176,13 +133,47 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ],
                   ),
                 ),
-                CustomButton(
-                  height: size.height * 0.055,
-                  text: "Reset Password",
-                  margin: EdgeInsets.fromLTRB(size.width * 0.05,
-                      size.height * 0.048, size.width * 0.055, 0),
-                  onTap: _submitForm,
-                )
+                ChangeNotifierProvider(
+                    create: (_) => AuthController(),
+                    child: Consumer<AuthController>(
+                      builder: (context, provider, child) {
+                        return provider.isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : CustomButton(
+                                height: size.height * 0.055,
+                                text: "Reset Password",
+                                margin: EdgeInsets.fromLTRB(size.width * 0.05,
+                                    size.height * 0.048, size.width * 0.055, 0),
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    provider.forgotPassword(
+                                      context,
+                                      emailController.text,
+                                    );
+                                  }
+                                },
+                              );
+                      },
+                    )),
+                // Padding(
+                //   padding: const EdgeInsets.all(25),
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       onTapTxtSignIn(context);
+                //     },
+                //     child: Padding(
+                //       padding: getPadding(top: 1),
+                //       child: Text(
+                //         "Login",
+                //         overflow: TextOverflow.ellipsis,
+                //         textAlign: TextAlign.left,
+                //         style: AppStyle.txtInderRegular22,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -193,5 +184,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   onTapArrowleft5(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  onTapTxtSignIn(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.signInOneScreen);
   }
 }

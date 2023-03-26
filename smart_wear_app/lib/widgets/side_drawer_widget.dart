@@ -9,7 +9,7 @@ import 'package:smart_wear/presentation/favorites_screen/favorites_screen.dart';
 import 'package:smart_wear/presentation/home_screen/home_screen.dart';
 import 'package:smart_wear/presentation/settings_screen/settings_screen.dart';
 
-import '../../providers/auth_provider.dart';
+import '../controllers/auth_controller.dart';
 import 'package:smart_wear/core/utils/color_constant.dart';
 
 class SideDrawerWidget extends StatefulWidget {
@@ -25,9 +25,6 @@ class _SideDrawerWidgetState extends State<SideDrawerWidget> {
     setState(() {
       _isSigningOut = true;
     });
-    await AuthProvider(FirebaseAuth.instance).signOut();
-    await AuthProvider(FirebaseAuth.instance).signOutFromGoogle();
-    await AuthProvider(FirebaseAuth.instance).signOutFromFirebase();
 
     // Return to the previous screen (which should be the sign-in screen)
     // ignore: use_build_context_synchronously

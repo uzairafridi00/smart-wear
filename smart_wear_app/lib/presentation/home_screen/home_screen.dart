@@ -122,21 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Best Designs",
+                "Choose Type",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.listViewItem);
-                },
-                child: Text(
-                  "View all",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: activeColorIndicator,
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -145,11 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         PageViewClothesList(),
       ]),
-      bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              color: Color.fromARGB(26, 189, 189, 189),
-              borderRadius: BorderRadius.circular(40)),
-          child: BottomNavbarWidget()),
     );
   }
 }

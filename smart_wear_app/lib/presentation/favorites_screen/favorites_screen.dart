@@ -70,13 +70,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           height: 30,
         ),
       ]),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(26, 189, 189, 189),
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: BottomNavbarWidget(),
-      ),
     );
   }
 }
