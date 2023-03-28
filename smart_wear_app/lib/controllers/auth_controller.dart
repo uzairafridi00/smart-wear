@@ -258,7 +258,7 @@ import '../routes/app_routes.dart';
 
 class AuthController with ChangeNotifier {
   FirebaseAuth auth = FirebaseAuth.instance;
-  final userRef = FirebaseFirestore.instance.collection('users');
+  DatabaseReference userRef = FirebaseDatabase.instance.ref('Users');
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -277,12 +277,12 @@ class AuthController with ChangeNotifier {
         // to Maintain the Session
         SessionController().userId = value.user!.uid.toString();
         // Saving the user Extra Information
-        userRef.doc(value.user!.uid.toString()).set({
+        userRef.child(value.user!.uid.toString()).set({
           'uid': value.user!.uid.toString(),
-          'email': value.user!.uid.toString(),
+          'email': email,
           'userName': username,
           'profile': '',
-          'Name': ''
+          'phone': '',
         }).then((value) {
           setLoading(false);
           Navigator.pushNamed(context, AppRoutes.homeScreen);

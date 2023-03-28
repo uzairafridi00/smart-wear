@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       FavoritesScreen(),
       SettingsScreen(),
     ];
-    debugPrint('_buildScreen: ${screens.length} screens found');
+    // debugPrint('_buildScreen: ${screens.length} screens found');
     return screens;
   }
 
@@ -35,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           CupertinoIcons.home,
-          size: 30,
+          size: 28,
         ), // set the size of the icon to 30
         activeColorPrimary: CupertinoColors.activeOrange,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -43,7 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           CupertinoIcons.person,
-          size: 30,
+          size: 28,
         ), // set the size of the icon to 30
         activeColorPrimary: CupertinoColors.activeOrange,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -51,7 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           CupertinoIcons.eye,
-          size: 30,
+          size: 28,
         ), // set the size of the icon to 30
         activeColorPrimary: CupertinoColors.activeOrange,
         activeColorSecondary: CupertinoColors.white,
@@ -60,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           CupertinoIcons.heart,
-          size: 30,
+          size: 28,
         ), // set the size of the icon to 30
         activeColorPrimary: CupertinoColors.activeOrange,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -68,13 +68,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           CupertinoIcons.settings,
-          size: 30,
+          size: 28,
         ), // set the size of the icon to 30
         activeColorPrimary: CupertinoColors.activeOrange,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];
-    debugPrint('_navbarItems: ${items.length} items found');
+    // debugPrint('_navbarItems: ${items.length} items found');
     return items;
   }
 
@@ -86,14 +86,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       items: _navbarItems(),
       controller: _controller,
       confineInSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white54,
       handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
+        colorBehindNavBar: Colors.white54,
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,

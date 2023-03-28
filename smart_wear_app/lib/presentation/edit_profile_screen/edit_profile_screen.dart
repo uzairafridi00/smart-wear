@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:provider/provider.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
+import 'package:smart_wear/controllers/profile_controller.dart';
 import 'package:smart_wear/core/app_export.dart';
+import '../../controllers/session_controller.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -11,19 +17,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final ref = FirebaseDatabase.instance.ref('User');
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  // Firebase User instance
+  final ref = FirebaseDatabase.instance.ref('Users');
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +26,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -51,184 +47,231 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           );
         }),
       ),
-      body: SingleChildScrollView(child: StreamBuilder(
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
+      body: ChangeNotifierProvider(
+        create: (_) => ProfileController(),
+        child: Consumer<ProfileController>(
+          builder: (context, provider, child) {
             return Container(
               width: screenWidth,
               height: screenHeight,
               padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
                   vertical: screenHeight * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: screenHeight * 0.25,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: screenHeight * 0.02),
-                      child: Column(children: [
-                        CircleAvatar(
-                          radius: screenWidth * 0.1,
-                          backgroundImage:
-                              const AssetImage("assets/images/profile_pic.png"),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Test",
-                          style: const TextStyle(
-                              fontSize: 30, fontFamily: "gillsans"),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Edit Profile Picture ",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "gillsans",
-                              color: activeColorIndicator),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(screenWidth * 0.05),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+              child: StreamBuilder(
+                stream:
+                    ref.child(SessionController().userId.toString()).onValue,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  } else if (snapshot.hasData &&
+                      snapshot.data?.snapshot?.value != null) {
+                    Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
+                    return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 0),
-                          child: Text(
-                            "Name",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontFamily: "gillsans",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
                         SizedBox(
-                          width: screenWidth * 0.9,
-                          child: TextFormField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              hintText: "Test",
+                          width: double.infinity,
+                          height: screenHeight * 0.25,
+                          child: SafeArea(
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(top: screenHeight * 0.02),
+                              child: Column(children: [
+                                // Place the image on Full Screen
+                                FullScreenWidget(
+                                  child: Container(
+                                    width: screenWidth * 0.23,
+                                    height: screenHeight * 0.1,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: ColorConstant.amber300,
+                                        width: 5,
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          screenWidth * 0.1),
+                                      child: provider.image == null
+                                          ? map['profile'].toString() == ""
+                                              ? const Icon(
+                                                  Icons.person,
+                                                  size: 40,
+                                                )
+                                              : Image(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                    map['profile'].toString(),
+                                                  ),
+                                                  loadingBuilder: (context,
+                                                      child, loadingprogress) {
+                                                    if (loadingprogress == null)
+                                                      return child;
+                                                    return const Center(
+                                                      child:
+                                                          CircularProgressIndicator
+                                                              .adaptive(),
+                                                    );
+                                                  },
+                                                  errorBuilder:
+                                                      (context, object, stack) {
+                                                    return Container(
+                                                      child: Icon(
+                                                        Icons.error_outline,
+                                                        color: ColorConstant
+                                                            .redA700E5,
+                                                      ),
+                                                    );
+                                                  },
+                                                )
+                                          : Stack(
+                                              children: [
+                                                Image.file(
+                                                    File(provider.image!.path)
+                                                        .absolute),
+                                                const Center(
+                                                  child:
+                                                      CircularProgressIndicator
+                                                          .adaptive(),
+                                                )
+                                              ],
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "${map['userName']}",
+                                  style: const TextStyle(
+                                      fontSize: 30, fontFamily: "gillsans"),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    provider.pickImage(context);
+                                  },
+                                  child: const Text(
+                                    "Edit Profile Picture ",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: "gillsans",
+                                        color: activeColorIndicator),
+                                  ),
+                                ),
+                              ]),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your name';
-                              }
-                              return null;
-                            },
                           ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 0),
-                          child: Text(
-                            "Email",
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontFamily: "gillsans",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.9,
-                          child: TextFormField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              hintText: "test@test.com",
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 0),
-                          child: Text(
-                            "Password",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: "gillsans",
-                            ),
+                          padding: EdgeInsets.all(screenWidth * 0.05),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  provider.showUserNameDialogAlert(
+                                      context, map['userName']);
+                                },
+                                child: ResuableRow(
+                                  title: "Username",
+                                  value: "${map['userName']}",
+                                  iconData: Icons.person,
+                                ),
+                              ),
+                              ResuableRow(
+                                title: "Email",
+                                value: "${map['email']}",
+                                iconData: Icons.email,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  provider.showPhoneDialogAlert(
+                                    context,
+                                    map['phone'].toString(),
+                                  );
+                                },
+                                child: map['phone'] == null
+                                    ? const ResuableRow(
+                                        title: "Phone",
+                                        value: "000000000",
+                                        iconData: Icons.phone,
+                                      )
+                                    : ResuableRow(
+                                        title: "Phone",
+                                        value: "${map['phone']}",
+                                        iconData: Icons.phone,
+                                      ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
                         ),
                         SizedBox(
-                          width: screenWidth * 0.9,
-                          child: TextFormField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              hintText: "*********",
+                          height: 30,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          margin:
+                              EdgeInsets.only(left: 30, right: 30, bottom: 40),
+                          width: double.infinity,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: ColorConstant.amber700,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Text(
+                            "Save",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'switzer',
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Password';
-                              }
-                              return null;
-                            },
                           ),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
                       ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(left: 30, right: 30, bottom: 40),
-                    width: double.infinity,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.amber700,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'switzer',
-                      ),
-                    ),
-                  ),
-                ],
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Something went wrong'),
+                    );
+                  }
+                },
               ),
             );
-          }
-        },
-      )),
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class ResuableRow extends StatelessWidget {
+  final String title, value;
+  final IconData iconData;
+  const ResuableRow(
+      {Key? key,
+      required this.title,
+      required this.value,
+      required this.iconData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(title),
+          leading: Icon(iconData),
+          trailing: Text(value),
+        ),
+        Divider(color: ColorConstant.black900.withOpacity(0.4))
+      ],
     );
   }
 }

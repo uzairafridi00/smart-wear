@@ -14,14 +14,14 @@ class Clothes {
 var destination = [
   Clothes(
     image: 'shirt.png',
-    name: 'Red T-Shirt',
+    name: 'T-Shirts',
     rate: 4.7,
     startColor: const Color(0xFFF37552),
     endColor: const Color(0xFFF58B5A),
   ),
   Clothes(
     image: 'pant.png',
-    name: 'Yellow Pant',
+    name: 'Pants',
     rate: 4.9,
     startColor: const Color(0xFFF37552),
     endColor: const Color(0xFFF58B5A),

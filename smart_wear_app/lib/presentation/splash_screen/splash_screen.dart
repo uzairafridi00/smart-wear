@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_wear/core/utils/color_constant.dart';
 
 import './splash_services.dart';
 
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.amber300,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Center(
                 child: Text(
                   'Smart Wear',
-                  style: TextStyle(fontSize: 23),
+                  style: TextStyle(
+                    fontSize: 23,
+                  ),
                 ),
               ),
             ),
