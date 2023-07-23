@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import '../../models/clothes_model.dart';
 import './list_view_item/clothes_card.dart';
+import 'details/full_screen_clothes_view.dart';
 
 class PageViewClothesList extends StatefulWidget {
   const PageViewClothesList({super.key});
@@ -29,10 +27,22 @@ class _PageViewClothesListState extends State<PageViewClothesList> {
           bool active = index == currentpage;
           return Opacity(
             opacity: currentpage == index ? 1.0 : 0.5,
-            child: ClothesCard(
-              active: active,
-              index: index,
-              clothe: destination[index],
+            child: GestureDetector(
+              onTap: () {
+                // Navigate to the full-screen view of the shirt
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        FullScreenClothesView(clothe: destination[index]),
+                  ),
+                );
+              },
+              child: ClothesCard(
+                active: active,
+                index: index,
+                clothe: destination[index],
+              ),
             ),
           );
         },

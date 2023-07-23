@@ -57,43 +57,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Color(0xFFEFEFEF),
                               borderRadius: BorderRadius.circular(60),
                             ),
-                            child: Row(children: [
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/images/profile_pic.png"),
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text(
-                                "Tester",
-                                style: TextStyle(
-                                    fontFamily: "geometric",
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ]),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * .14,
-                            margin: EdgeInsets.only(top: 18, left: 2),
-                            padding: EdgeInsets.all(5),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Color(0XFFEFEFEF),
-                              borderRadius: BorderRadius.circular(60),
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/Notifications.svg",
-                                width: 35,
-                              ),
+                            child: Row(
+                              children: const [
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "Smart Wear",
+                                  style: TextStyle(
+                                      fontFamily: "geometric",
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Padding(
@@ -103,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Stack(
                           children: [
                             RichText(
-                              text: TextSpan(
+                              text: const TextSpan(
                                 children: [
                                   TextSpan(
                                       text: 'Explore the\n',
@@ -144,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Choose Type",
+                            "Choose",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:camera/camera.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smart_wear/presentation/splash_screen/splash_screen.dart';
 import './presentation/dashboard/dashboard_screen.dart';
@@ -13,6 +15,7 @@ void main() async {
   ]);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 

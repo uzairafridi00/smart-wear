@@ -7,6 +7,7 @@ import 'package:smart_wear/presentation/edit_profile_screen/edit_profile_screen.
 import 'package:smart_wear/presentation/favorites_screen/favorites_screen.dart';
 import 'package:smart_wear/presentation/home_screen/home_screen.dart';
 import 'package:smart_wear/presentation/settings_screen/settings_screen.dart';
+import '../ar_screen/camera_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   DashboardScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Widget> screens = [
       HomeScreen(),
       EditProfileScreen(),
-      EditProfileScreen(),
+      CameraScreen(),
       FavoritesScreen(),
       SettingsScreen(),
     ];

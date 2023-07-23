@@ -12,11 +12,41 @@ class ContactSupportScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Contact Support'),
+          title: const Text('Contact Support'),
         ),
         backgroundColor: ColorConstant.whiteA700,
         body: Center(
-          child: Text('Contact Support'),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Image(
+                  image: AssetImage('assets/images/about_us.png'),
+                ),
+                SizedBox(height: 10), // Add some spacing between image and text
+                SizedBox(
+                  width: 300,
+                  child: Center(
+                    child: Text(
+                      'If you face any issue, feel free to contact our support team.', // Replace with your desired text
+                      style: TextStyle(
+                        fontSize: 18, // Adjust the font size as needed
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                SizedBox(
+                  width: 300,
+                  child: Center(
+                    child: Text(
+                      'info@smartwear.com', // Replace with your desired text
+                      style: TextStyle(
+                        fontSize: 18, // Adjust the font size as needed
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
         ),
       ),
     );

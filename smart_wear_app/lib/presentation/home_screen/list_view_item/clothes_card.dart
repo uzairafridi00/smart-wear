@@ -23,7 +23,7 @@ class ClothesCard extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 320,
+          height: 345,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOutQuint,
@@ -44,23 +44,24 @@ class ClothesCard extends StatelessWidget {
               ],
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/${clothe.image}')),
+                  image: AssetImage('assets/images/shirts/${clothe.image}')),
             ),
             child: Stack(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      gradient: LinearGradient(
-                        colors: [
-                          clothe.startColor!,
-                          clothe.endColor!.withOpacity(0.01),
-                        ],
-                        begin: Alignment.bottomRight,
-                        end: Alignment.topLeft,
-                        tileMode: TileMode.clamp,
-                        stops: const [0.1, 0.4],
-                      )),
+                    borderRadius: BorderRadius.circular(32),
+                    gradient: LinearGradient(
+                      colors: [
+                        clothe.startColor!,
+                        //clothe.endColor!.withOpacity(0.01),
+                      ],
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                      tileMode: TileMode.clamp,
+                      stops: const [0.1, 0.4],
+                    ),
+                  ),
                 ),
               ],
             ),
